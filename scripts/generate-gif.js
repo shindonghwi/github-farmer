@@ -7,7 +7,7 @@ const path = require('path');
 const CELL_SIZE = 12;
 const CELL_GAP = 3;
 const PADDING = 20;
-const MOVE_INTERVAL = 40; // ms per frame
+const MOVE_INTERVAL = 60; // ms per frame
 
 const CONTRIBUTION_COLORS = {
   0: '#161b22',
@@ -172,7 +172,9 @@ function drawFrame(ctx, contributions, state, canvasWidth, canvasHeight) {
   ctx.font = '10px monospace';
   ctx.fillStyle = '#666';
   ctx.fillText(`Commits: ${state.commits}`, PADDING, gridEndY + 30);
-  ctx.fillText(`PRs: ${state.pullRequests}`, PADDING + 80, gridEndY + 30);
+  ctx.fillText(`PRs: ${state.pullRequests}`, PADDING + 100, gridEndY + 30);
+  ctx.fillText(`Issues: ${state.issues}`, PADDING + 180, gridEndY + 30);
+  ctx.fillText(`Reviews: ${state.reviews}`, PADDING + 260, gridEndY + 30);
 
   // Draw egg/chicks
   const rowY = gridEndY + 55;
@@ -307,7 +309,7 @@ function simulateGame(contributions) {
     // If complete, continue for wave animation
     if (state.isComplete) {
       state.completeFrame++;
-      if (state.completeFrame > 60) break; // End after wave animation
+      if (state.completeFrame > 120) break; // End after wave animation
       frameCount++;
       continue;
     }
@@ -320,8 +322,10 @@ function simulateGame(contributions) {
         const day = week.contributionDays[state.day];
         if (day && day.contributionCount > 0) {
           state.collectedCount += day.contributionCount;
-          state.commits += Math.floor(day.contributionCount * 0.7);
-          state.pullRequests += Math.floor(day.contributionCount * 0.1);
+          state.commits += Math.floor(day.contributionCount * 0.6);
+          state.pullRequests += Math.floor(day.contributionCount * 0.2);
+          state.issues += Math.floor(day.contributionCount * 0.1);
+          state.reviews += Math.floor(day.contributionCount * 0.1);
         }
       }
       state.visitedCells.add(cellKey);
