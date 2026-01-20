@@ -8,13 +8,13 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "GitHub Farmer 🌱🐣",
+    title: "GitHub Farmer",
     description: "GitHub 잔디를 수확하고 병아리를 키우세요",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "GitHub Farmer 🌱🐣",
+    title: "GitHub Farmer",
     description: "GitHub 잔디를 수확하고 병아리를 키우세요",
   },
 };

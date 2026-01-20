@@ -1,4 +1,4 @@
-# GitHub Farmer 🌱🐣
+# GitHub Farmer
 
 GitHub 잔디를 수확하고 병아리를 키우는 게임형 시각화 웹앱.
 
@@ -8,11 +8,11 @@ GitHub 잔디를 수확하고 병아리를 키우는 게임형 시각화 웹앱.
 
 ## Features
 
-- 🌱 GitHub 잔디(기여도) 그래프 시각화
-- 🏃 화살표가 잔디밭을 누비며 수확
-- 🥚 1000 기여도마다 달걀이 부화
-- 🐣 병아리가 점점 늘어남
-- 📊 Commits, PRs, Issues, Reviews 세부 통계
+- GitHub 잔디(기여도) 그래프 시각화
+- 화살표가 잔디밭을 누비며 수확
+- 1000 기여도마다 달걀이 부화
+- 병아리가 점점 늘어남
+- Commits, PRs, Issues, Reviews 세부 통계
 
 ## Demo
 
