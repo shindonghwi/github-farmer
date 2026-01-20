@@ -134,31 +134,33 @@ export function GameVisualizer({
       });
     });
 
-    // 캐릭터 (화살표)
-    const charPos = gridToPixel(state.week, state.day);
+    // 캐릭터 (화살표) - 게임 완료 시 숨김
+    if (!state.isComplete) {
+      const charPos = gridToPixel(state.week, state.day);
 
-    ctx.save();
-    ctx.translate(charPos.x, charPos.y);
+      ctx.save();
+      ctx.translate(charPos.x, charPos.y);
 
-    let rotation = 0;
-    if (state.direction === "down") rotation = Math.PI;
-    else if (state.direction === "up") rotation = 0;
-    if (state.isTurning) rotation = Math.PI / 2;
+      let rotation = 0;
+      if (state.direction === "down") rotation = Math.PI;
+      else if (state.direction === "up") rotation = 0;
+      if (state.isTurning) rotation = Math.PI / 2;
 
-    ctx.rotate(rotation);
+      ctx.rotate(rotation);
 
-    ctx.shadowColor = "#00fff5";
-    ctx.shadowBlur = 10;
-    ctx.fillStyle = "#00fff5";
-    ctx.beginPath();
-    ctx.moveTo(0, -7);
-    ctx.lineTo(6, 6);
-    ctx.lineTo(0, 3);
-    ctx.lineTo(-6, 6);
-    ctx.closePath();
-    ctx.fill();
+      ctx.shadowColor = "#00fff5";
+      ctx.shadowBlur = 10;
+      ctx.fillStyle = "#00fff5";
+      ctx.beginPath();
+      ctx.moveTo(0, -7);
+      ctx.lineTo(6, 6);
+      ctx.lineTo(0, 3);
+      ctx.lineTo(-6, 6);
+      ctx.closePath();
+      ctx.fill();
 
-    ctx.restore();
+      ctx.restore();
+    }
 
     // 표시 카운트: 항상 일정 속도로 증가 (collectedCount가 한도)
     // 게임 완료 후에도 애니메이션 계속
