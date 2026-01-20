@@ -43,6 +43,7 @@ export function GameVisualizer({
     collectedCount: 0,
     displayedCount: 0,
     isComplete: false,
+    completeTime: 0,
     // 세부 카운트
     commits: 0,
     pullRequests: 0,
@@ -67,6 +68,7 @@ export function GameVisualizer({
         collectedCount: 0,
         displayedCount: 0,
         isComplete: false,
+        completeTime: 0,
         commits: 0,
         pullRequests: 0,
         issues: 0,
@@ -111,6 +113,8 @@ export function GameVisualizer({
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // 기여도 그리드 (동그랗게)
+    const timeSinceComplete = state.isComplete ? timestamp - state.completeTime : 0;
+
     contributions.forEach((week, weekIndex) => {
       week.contributionDays.forEach((day, dayIndex) => {
         const pos = gridToPixel(weekIndex, dayIndex);
@@ -118,13 +122,17 @@ export function GameVisualizer({
         const isCollected = state.visitedCells.has(cellKey);
 
         if (isCollected) {
-          // 게임 완료 시 반짝이는 효과
+          // 게임 완료 시 파도 효과 (왼쪽→오른쪽)
           if (state.isComplete && day.contributionCount > 0) {
-            const phase = (weekIndex * 7 + dayIndex) * 0.3;
-            const twinkle = 0.4 + Math.sin(timestamp * 0.003 + phase) * 0.3;
+            // 왼쪽에서 오른쪽으로 파도가 밀려오는 효과
+            const waveDelay = weekIndex * 80; // 각 열마다 80ms 딜레이
+            const waveTime = Math.max(0, timeSinceComplete - waveDelay);
+            const wave = Math.sin(waveTime * 0.002) * 0.5 + 0.5; // 느린 파도
+            const alpha = 0.3 + wave * 0.5;
+
             const level = getColorLevel(day.contributionCount);
             ctx.fillStyle = CONTRIBUTION_COLORS[level];
-            ctx.globalAlpha = twinkle;
+            ctx.globalAlpha = alpha;
           } else {
             ctx.fillStyle = "#30363d";
             ctx.globalAlpha = 0.7;
@@ -143,12 +151,19 @@ export function GameVisualizer({
       });
     });
 
-    // 캐릭터 (화살표) - 게임 완료 시 숨김
-    if (!state.isComplete) {
-      const charPos = gridToPixel(state.week, state.day);
+    // 캐릭터 (화살표) - 게임 완료 시 페이드아웃
+    const arrowAlpha = state.isComplete
+      ? Math.max(0, 1 - timeSinceComplete / 500) // 0.5초 동안 페이드아웃
+      : 1;
+
+    if (arrowAlpha > 0) {
+      const charPos = state.isComplete
+        ? gridToPixel(contributions.length - 1, state.direction === "up" ? 0 : 6) // 마지막 위치
+        : gridToPixel(state.week, state.day);
 
       ctx.save();
       ctx.translate(charPos.x, charPos.y);
+      ctx.globalAlpha = arrowAlpha;
 
       let rotation = 0;
       if (state.direction === "down") rotation = Math.PI;
@@ -169,6 +184,7 @@ export function GameVisualizer({
       ctx.fill();
 
       ctx.restore();
+      ctx.globalAlpha = 1;
     }
 
     // 표시 카운트: 항상 일정 속도로 증가 (collectedCount가 한도)
@@ -402,6 +418,7 @@ export function GameVisualizer({
 
           if (state.week >= contributions.length) {
             state.isComplete = true;
+            state.completeTime = timestamp;
             onComplete?.();
           } else {
             // 새 주의 시작 위치 설정
