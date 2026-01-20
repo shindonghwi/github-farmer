@@ -118,8 +118,17 @@ export function GameVisualizer({
         const isCollected = state.visitedCells.has(cellKey);
 
         if (isCollected) {
-          ctx.fillStyle = "#30363d";
-          ctx.globalAlpha = 0.7;
+          // 게임 완료 시 반짝이는 효과
+          if (state.isComplete && day.contributionCount > 0) {
+            const phase = (weekIndex * 7 + dayIndex) * 0.3;
+            const twinkle = 0.4 + Math.sin(timestamp * 0.003 + phase) * 0.3;
+            const level = getColorLevel(day.contributionCount);
+            ctx.fillStyle = CONTRIBUTION_COLORS[level];
+            ctx.globalAlpha = twinkle;
+          } else {
+            ctx.fillStyle = "#30363d";
+            ctx.globalAlpha = 0.7;
+          }
         } else {
           const level = getColorLevel(day.contributionCount);
           ctx.fillStyle = CONTRIBUTION_COLORS[level];
