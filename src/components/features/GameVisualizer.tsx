@@ -192,7 +192,7 @@ export function GameVisualizer({
     ctx.shadowBlur = 0;
     ctx.font = "bold 16px monospace";
     ctx.fillStyle = "#39d353";
-    ctx.fillText(`Contributions: ${Math.floor(state.displayedCount)} / ${totalContributions}`, PADDING, gridEndY + 20);
+    ctx.fillText(`Contributions: ${Math.floor(state.displayedCount)}`, PADDING, gridEndY + 20);
 
     // 둘째 줄: 세부 통계
     ctx.font = "11px monospace";
