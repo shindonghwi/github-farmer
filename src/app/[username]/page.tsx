@@ -17,8 +17,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = await params;
   return {
-    title: `@${username} | Commit Collector`,
-    description: `${username}의 GitHub 커밋을 수집하세요!`,
+    title: `@${username}의 잔디밭 | GitHub Farmer`,
+    description: `${username}의 GitHub 잔디를 수확하고 병아리를 키우세요!`,
   };
 }
 

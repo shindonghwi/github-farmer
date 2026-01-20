@@ -1,6 +1,6 @@
-# GitHub Contribution Collector
+# GitHub Farmer 🌱🐣
 
-GitHub 기여도를 게임처럼 수집하는 시각화 웹앱.
+GitHub 잔디를 수확하고 병아리를 키우는 게임형 시각화 웹앱.
 
 ![Next.js](https://img.shields.io/badge/Next.js-14-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
@@ -8,14 +8,15 @@ GitHub 기여도를 게임처럼 수집하는 시각화 웹앱.
 
 ## Features
 
-- GitHub 기여도 그래프 시각화
-- 화살표가 잔디를 수집하며 이동
-- 1000 기여도마다 달걀이 부화하여 병아리 등장
-- Commits, PRs, Issues, Reviews 세부 통계 표시
+- 🌱 GitHub 잔디(기여도) 그래프 시각화
+- 🏃 화살표가 잔디밭을 누비며 수확
+- 🥚 1000 기여도마다 달걀이 부화
+- 🐣 병아리가 점점 늘어남
+- 📊 Commits, PRs, Issues, Reviews 세부 통계
 
 ## Demo
 
-`https://your-project.vercel.app/shindonghwi`
+`https://github-farmer.vercel.app/shindonghwi`
 
 ## Getting Started
 
@@ -47,7 +48,7 @@ http://localhost:3000 에서 확인
 
 ## Deploy on Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/github-contribution-collector)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shindonghwi/github-farmer)
 
 1. Vercel에서 GitHub 레포 import
 2. Environment Variables에 `GITHUB_TOKEN` 추가
