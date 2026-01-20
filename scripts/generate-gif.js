@@ -392,7 +392,7 @@ async function generateGIF(username, token, outputPath) {
   encoder.createReadStream().pipe(stream);
 
   encoder.start();
-  encoder.setRepeat(0); // Loop forever
+  encoder.setRepeat(-1); // No repeat - play once
   encoder.setDelay(MOVE_INTERVAL);
   encoder.setQuality(10);
 
@@ -402,6 +402,12 @@ async function generateGIF(username, token, outputPath) {
   console.log(`Rendering ${frames.length} frames...`);
   for (let i = 0; i < frames.length; i++) {
     drawFrame(ctx, contributions, frames[i], canvasWidth, canvasHeight);
+
+    // Last frame: hold for 10 seconds
+    if (i === frames.length - 1) {
+      encoder.setDelay(10000);
+    }
+
     encoder.addFrame(ctx);
 
     if (i % 50 === 0) {
