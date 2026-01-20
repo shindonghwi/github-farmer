@@ -25,6 +25,9 @@ on:
     - cron: '0 0 * * *'  # Daily update
   workflow_dispatch:      # Manual trigger
 
+permissions:
+  contents: write
+
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -34,14 +37,6 @@ jobs:
       - uses: shindonghwi/github-farmer@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit and push
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add github-farmer.gif
-          git diff --staged --quiet || git commit -m "Update GitHub Farmer GIF"
-          git push
 ```
 
 ### 2. Add to README
