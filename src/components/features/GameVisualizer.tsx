@@ -122,17 +122,32 @@ export function GameVisualizer({
         const isCollected = state.visitedCells.has(cellKey);
 
         if (isCollected) {
-          // 게임 완료 시 파도 효과 (왼쪽→오른쪽)
+          // 게임 완료 시 파도 효과 (왼쪽→오른쪽, 서서히 전환)
           if (state.isComplete && day.contributionCount > 0) {
-            // 왼쪽에서 오른쪽으로 파도가 밀려오는 효과
-            const waveDelay = weekIndex * 80; // 각 열마다 80ms 딜레이
-            const waveTime = Math.max(0, timeSinceComplete - waveDelay);
-            const wave = Math.sin(waveTime * 0.002) * 0.5 + 0.5; // 느린 파도
-            const alpha = 0.3 + wave * 0.5;
+            const waveDelay = weekIndex * 100; // 각 열마다 100ms 딜레이
+            const transitionTime = Math.max(0, timeSinceComplete - waveDelay);
 
-            const level = getColorLevel(day.contributionCount);
-            ctx.fillStyle = CONTRIBUTION_COLORS[level];
-            ctx.globalAlpha = alpha;
+            // 1초에 걸쳐 회색 → 색상으로 전환
+            const colorTransition = Math.min(1, transitionTime / 1000);
+
+            if (colorTransition < 1) {
+              // 전환 중: 회색에서 점점 색상으로
+              ctx.fillStyle = "#30363d";
+              ctx.globalAlpha = 0.7 * (1 - colorTransition);
+              ctx.beginPath();
+              ctx.arc(pos.x, pos.y, CELL_SIZE / 2, 0, Math.PI * 2);
+              ctx.fill();
+
+              const level = getColorLevel(day.contributionCount);
+              ctx.fillStyle = CONTRIBUTION_COLORS[level];
+              ctx.globalAlpha = colorTransition * 0.6;
+            } else {
+              // 전환 완료: 느린 파도
+              const wave = Math.sin(transitionTime * 0.0015) * 0.5 + 0.5;
+              const level = getColorLevel(day.contributionCount);
+              ctx.fillStyle = CONTRIBUTION_COLORS[level];
+              ctx.globalAlpha = 0.4 + wave * 0.4;
+            }
           } else {
             ctx.fillStyle = "#30363d";
             ctx.globalAlpha = 0.7;
