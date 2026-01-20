@@ -36,9 +36,10 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
-        INPUT_USERNAME: ${{ inputs.username }}
+        INPUT_USERNAME: ${{ inputs.username || github.repository_owner }}
         INPUT_OUTPUT_PATH: ${{ inputs.output-path }}
       run: |
+        echo "Generating GIF for user: $INPUT_USERNAME"
         node ${{ github.action_path }}/scripts/generate-gif.js
 
     - name: Commit and push
