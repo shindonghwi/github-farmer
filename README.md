@@ -1,43 +1,74 @@
 # GitHub Farmer
 
-GitHub 잔디를 수확하고 병아리를 키우는 인터랙티브 기여도 시각화 게임
+A GitHub Action that generates an animated GIF of your contribution graph being harvested.
 
-## Demo
+![Example](https://raw.githubusercontent.com/shindonghwi/github-farmer/main/example.gif)
 
-**[github-farmer.vercel.app](https://github-farmer.vercel.app)**
+## Features
 
-## 사용법
+- Arrow character harvests your yearly GitHub contributions
+- Egg hatches into a chick every 1000 contributions
+- Displays commit and PR statistics
+- Smooth wave animation on completion
 
-GitHub 프로필 README에 추가:
+## Usage
 
-```md
-[![GitHub Farmer](https://img.shields.io/badge/GitHub%20Farmer-Play%20Now-39d353)](https://github-farmer.vercel.app/YOUR_USERNAME)
+### 1. Create Workflow
+
+Add `.github/workflows/github-farmer.yml` to your profile repository:
+
+```yaml
+name: GitHub Farmer
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily update
+  workflow_dispatch:      # Manual trigger
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shindonghwi/github-farmer@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add github-farmer.gif
+          git diff --staged --quiet || git commit -m "Update GitHub Farmer GIF"
+          git push
 ```
 
-> `YOUR_USERNAME`을 본인 GitHub 유저네임으로 변경
-
-### 예시
+### 2. Add to README
 
 ```md
-[![GitHub Farmer](https://img.shields.io/badge/GitHub%20Farmer-Play%20Now-39d353)](https://github-farmer.vercel.app/shindonghwi)
+![GitHub Farmer](./github-farmer.gif)
 ```
 
-[![GitHub Farmer](https://img.shields.io/badge/GitHub%20Farmer-Play%20Now-39d353)](https://github-farmer.vercel.app/shindonghwi)
+## Inputs
 
-## 기능
+| Input | Description | Required | Default |
+|-------|-------------|----------|---------|
+| `github-token` | GitHub token for API access | Yes | - |
+| `username` | GitHub username | No | Repository owner |
+| `output-path` | Output path for GIF | No | `github-farmer.gif` |
 
-- 화살표가 1년간의 GitHub 잔디를 수확
-- 1000 기여도마다 달걀 부화 → 병아리 등장
-- Commits, PRs, Issues, Reviews 통계
-- 완료 시 파도 애니메이션
+## Examples
 
-## 배포
+Generate GIF for a different user:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shindonghwi/github-farmer&env=GITHUB_TOKEN)
-
-| 환경변수 | 설명 |
-|---------|------|
-| `GITHUB_TOKEN` | [Personal Access Token](https://github.com/settings/tokens) (`read:user`) |
+```yaml
+- uses: shindonghwi/github-farmer@v1
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+    username: torvalds
+    output-path: torvalds-farm.gif
+```
 
 ## License
 

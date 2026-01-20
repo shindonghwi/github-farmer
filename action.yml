@@ -1,0 +1,42 @@
+name: 'GitHub Farmer'
+description: 'Generate a GIF of your GitHub contributions being harvested'
+author: 'shindonghwi'
+
+branding:
+  icon: 'gift'
+  color: 'green'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+  username:
+    description: 'GitHub username (defaults to repository owner)'
+    required: false
+  output-path:
+    description: 'Output path for the GIF file'
+    required: false
+    default: 'github-farmer.gif'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        cd ${{ github.action_path }}
+        npm ci
+
+    - name: Generate GIF
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        INPUT_USERNAME: ${{ inputs.username }}
+        INPUT_OUTPUT_PATH: ${{ inputs.output-path }}
+      run: |
+        node ${{ github.action_path }}/scripts/generate-gif.js
