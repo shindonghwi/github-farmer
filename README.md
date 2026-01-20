@@ -1,42 +1,43 @@
 # GitHub Farmer
 
-GitHub 잔디를 수확하고 병아리를 키우는 게임형 기여도 시각화
+GitHub 잔디를 수확하고 병아리를 키우는 인터랙티브 기여도 시각화 게임
 
-## 내 GitHub 프로필에 추가하기
+## Demo
 
-### 1. 링크로 추가
+**[github-farmer.vercel.app](https://github-farmer.vercel.app)**
 
-GitHub 프로필 README에 아래 링크 추가:
+## 사용법
+
+GitHub 프로필 README에 추가:
 
 ```md
-[나의 GitHub Farmer 보러가기](https://github-farmer.vercel.app/YOUR_USERNAME)
+[![GitHub Farmer](https://img.shields.io/badge/GitHub%20Farmer-Play%20Now-39d353)](https://github-farmer.vercel.app/YOUR_USERNAME)
 ```
 
-`YOUR_USERNAME`을 본인 GitHub 유저네임으로 변경하세요.
+> `YOUR_USERNAME`을 본인 GitHub 유저네임으로 변경
 
 ### 예시
 
 ```md
-[나의 GitHub Farmer 보러가기](https://github-farmer.vercel.app/shindonghwi)
+[![GitHub Farmer](https://img.shields.io/badge/GitHub%20Farmer-Play%20Now-39d353)](https://github-farmer.vercel.app/shindonghwi)
 ```
 
-결과: [나의 GitHub Farmer 보러가기](https://github-farmer.vercel.app/shindonghwi)
+[![GitHub Farmer](https://img.shields.io/badge/GitHub%20Farmer-Play%20Now-39d353)](https://github-farmer.vercel.app/shindonghwi)
 
 ## 기능
 
 - 화살표가 1년간의 GitHub 잔디를 수확
-- 1000 기여도마다 달걀이 부화하여 병아리 등장
-- Commits, PRs, Issues, Reviews 세부 통계 표시
-- 게임 완료 후 잔디밭 파도 효과
+- 1000 기여도마다 달걀 부화 → 병아리 등장
+- Commits, PRs, Issues, Reviews 통계
+- 완료 시 파도 애니메이션
 
-## 직접 배포하기
+## 배포
 
-자신만의 인스턴스를 운영하고 싶다면:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shindonghwi/github-farmer&env=GITHUB_TOKEN)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shindonghwi/github-farmer&env=GITHUB_TOKEN&envDescription=GitHub%20Personal%20Access%20Token%20(read:user%20권한%20필요))
-
-**필요한 환경변수:**
-- `GITHUB_TOKEN`: [GitHub Personal Access Token](https://github.com/settings/tokens) (`read:user` 권한)
+| 환경변수 | 설명 |
+|---------|------|
+| `GITHUB_TOKEN` | [Personal Access Token](https://github.com/settings/tokens) (`read:user`) |
 
 ## License
 
