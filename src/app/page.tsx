@@ -7,10 +7,11 @@ export default function Home() {
         {/* 로고 & 타이틀 */}
         <div className="space-y-4">
           <h1 className="text-5xl font-bold">
-            <span className="text-github-green-4">♪</span> Code Symphony
+            <span className="text-github-green-4">🌱</span> GitHub Farmer{" "}
+            <span className="text-github-green-4">🐣</span>
           </h1>
           <p className="text-xl text-github-text-muted">
-            당신의 코딩 여정을 들어보세요
+            잔디를 수확하고 병아리를 키우세요
           </p>
         </div>
 
@@ -21,7 +22,7 @@ export default function Home() {
 
         {/* 설명 */}
         <div className="text-github-text-muted space-y-2">
-          <p>GitHub 유저네임을 입력하면 기여도 데이터가 음악으로 변환됩니다</p>
+          <p>GitHub 유저네임을 입력하면 잔디밭 수확 게임이 시작됩니다</p>
           <p className="text-sm">
             예시:{" "}
             <a
@@ -50,24 +51,24 @@ export default function Home() {
         {/* 기능 설명 */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           <div className="p-4 bg-github-bg-secondary rounded-lg border border-github-border">
-            <div className="text-2xl mb-2">🎵</div>
-            <h3 className="font-semibold mb-1">기여도 → 음악</h3>
+            <div className="text-2xl mb-2">🌱</div>
+            <h3 className="font-semibold mb-1">잔디 수확</h3>
             <p className="text-sm text-github-text-muted">
-              커밋 수가 멜로디가 되고, 활동량이 템포가 됩니다
+              화살표가 잔디밭을 누비며 기여도를 수집합니다
+            </p>
+          </div>
+          <div className="p-4 bg-github-bg-secondary rounded-lg border border-github-border">
+            <div className="text-2xl mb-2">🥚</div>
+            <h3 className="font-semibold mb-1">달걀 부화</h3>
+            <p className="text-sm text-github-text-muted">
+              1000 기여도마다 달걀이 부화하여 병아리가 태어납니다
             </p>
           </div>
           <div className="p-4 bg-github-bg-secondary rounded-lg border border-github-border">
             <div className="text-2xl mb-2">📊</div>
-            <h3 className="font-semibold mb-1">실시간 시각화</h3>
+            <h3 className="font-semibold mb-1">세부 통계</h3>
             <p className="text-sm text-github-text-muted">
-              음악에 맞춰 기여도 그래프가 하이라이트됩니다
-            </p>
-          </div>
-          <div className="p-4 bg-github-bg-secondary rounded-lg border border-github-border">
-            <div className="text-2xl mb-2">🎹</div>
-            <h3 className="font-semibold mb-1">C Major Pentatonic</h3>
-            <p className="text-sm text-github-text-muted">
-              불협화음 없는 편안한 멜로디를 생성합니다
+              Commits, PRs, Issues, Reviews 통계를 확인하세요
             </p>
           </div>
         </div>
@@ -76,7 +77,7 @@ export default function Home() {
       {/* 푸터 */}
       <footer className="absolute bottom-4 text-sm text-github-text-muted">
         <a
-          href="https://github.com/shindonghwi/github-symphony-graph"
+          href="https://github.com/shindonghwi/github-farmer"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-github-accent transition-colors"
